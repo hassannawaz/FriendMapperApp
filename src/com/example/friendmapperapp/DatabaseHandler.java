@@ -42,7 +42,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_PH_NO = "PhoneNumber";
 	private static final String KEY_REG = "Registered";
 	private static final String KEY_VIS = "Visibility";
-	private static final String KEY_PAN = "Panic";
 	private static final String KEY_LAT = "Latitude";
 	private static final String KEY_LONG = "Longitude";
 
@@ -65,7 +64,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		String CREATE_MEMBERS_TABLE = "CREATE TABLE " + TABLE_NAME + "("
 				+ KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
 				+ KEY_PH_NO + " TEXT," + KEY_REG + " TEXT," + KEY_VIS
-				+ " INTEGER," + KEY_PAN + " INTEGER," + KEY_LAT + " FLOAT,"
+				+ " INTEGER," + KEY_LAT + " FLOAT,"
 				+ KEY_LONG + " FLOAT" + ")";
 		db.execSQL(CREATE_MEMBERS_TABLE);
 	}
@@ -87,7 +86,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put(KEY_LONG, Member_.getLongitude()); // Longitude
 		values.put(KEY_LAT, Member_.getLatitude()); // Latitude
-		values.put(KEY_PAN, Member_.getPanic()); // Panic
 		values.put(KEY_VIS, Member_.getVisibility()); // Visibility
 		values.put(KEY_REG, Member_.getRegistered()); // Registered
 		values.put(KEY_NAME, Member_.getName()); // Name
@@ -103,7 +101,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cursor = db.query(TABLE_NAME, new String[] { KEY_ID, KEY_NAME,
-				KEY_PH_NO, KEY_REG, KEY_VIS, KEY_PAN, KEY_LAT, KEY_LONG },
+				KEY_PH_NO, KEY_REG, KEY_VIS, KEY_LAT, KEY_LONG },
 				KEY_PH_NO + "=?", new String[] { Phone_ }, null, null, null,
 				null);
 		if (cursor != null)
@@ -112,8 +110,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		Member contact = new Member(Integer.parseInt(cursor.getString(0)),
 				cursor.getString(1), cursor.getString(2), cursor.getString(3),
 				Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor
-						.getString(5)), Integer.parseInt(cursor.getString(6)),
-				Integer.parseInt(cursor.getString(7)));
+						.getString(5)), Integer.parseInt(cursor.getString(6)));
 		// return contact
 		return contact;
 	}
@@ -137,9 +134,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				member_.setPhoneNumber(cursor.getString(2));
 				member_.setRegistered(cursor.getString(3));
 				member_.setVisibility(Integer.parseInt(cursor.getString(4)));
-				member_.setPanic(Integer.parseInt(cursor.getString(5)));
-				member_.setLatitude(Float.parseFloat(cursor.getString(6)));
-				member_.setLongitude(Float.parseFloat(cursor.getString(7)));
+				member_.setLatitude(Float.parseFloat(cursor.getString(5)));
+				member_.setLongitude(Float.parseFloat(cursor.getString(6)));
 
 				// Adding contact to list
 				memberList.add(member_);
@@ -168,7 +164,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put(KEY_LONG, Member_.getLongitude()); // Longitude
 		values.put(KEY_LAT, Member_.getLatitude()); // Latitude
-		values.put(KEY_PAN, Member_.getPanic()); // Panic
 		values.put(KEY_VIS, Member_.getVisibility()); // Visibility
 		values.put(KEY_REG, Member_.getRegistered()); // Registered
 		values.put(KEY_NAME, Member_.getName()); // Name
@@ -193,14 +188,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				HttpClient httpclient = new DefaultHttpClient();
 				HttpPost httppost = new HttpPost(url);
 
-				Log.e("stst", "in");
 				try {
 					httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 				} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				Log.e("stst", "in");
 				// Execute HTTP Post Request
 				HttpResponse response = null;
 				try {

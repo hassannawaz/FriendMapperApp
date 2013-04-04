@@ -7,7 +7,6 @@ public class Member {
 	private String Name;
 	private String PhoneNumber;
 	private int Visibility;
-	private int Panic;
 	private float Latitude;
 	private float Longitude;
 	private int ID;
@@ -18,11 +17,10 @@ public class Member {
 
     // constructor
     public Member(int ID, String Name, String PhoneNumber, String Registered, 
-    		int Visibility, int Panic, float Latitude, float Longitude){
+    		int Visibility, float Latitude, float Longitude){
     	this.Registered = Registered;
     	this.Name = Name;
     	this.PhoneNumber = PhoneNumber;
-    	this.Panic = Panic;
     	this.Visibility = Visibility;
     	this.Latitude = Latitude;
     	this.Longitude = Longitude;
@@ -76,15 +74,6 @@ public class Member {
     	return this.Visibility;
     }
     
-    // Get Panic 
-    public int getPanic() {
-    	return this.Panic;
-    }
-
-    // Set Panic
-    public void setPanic(int Panic_) {
-    	this.Panic = Panic_;
-    }
     // Get Registered
     public String getRegistered() {
     	return this.Registered;

@@ -28,11 +28,12 @@ public class RegisterActivity extends Activity {
 		setContentView(R.layout.activity_register);
 
 		/* Getting Current Mobile Number */
-		TelephonyManager phoneManager = (TelephonyManager) getApplicationContext()
-				.getSystemService(Context.TELEPHONY_SERVICE);
+		TelephonyManager phoneManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		String phoneNumber = phoneManager.getLine1Number();
 		TextView PhoneNumberText = (TextView) findViewById(R.id.Phone_number);
 		PhoneNumberText.setText(phoneNumber);
+		
+		if (!PhoneNumberText.getText().equals(""))
 		PhoneNumberText.setEnabled(isRestricted());
 	}
 
@@ -80,7 +81,6 @@ public class RegisterActivity extends Activity {
 				nameValuePairs.add(new BasicNameValuePair("PhoneNumber", PhoneNumberText.getText().toString()));
 				nameValuePairs.add(new BasicNameValuePair("Registered", "true"));
 				nameValuePairs.add(new BasicNameValuePair("Visibility", "false"));
-				nameValuePairs.add(new BasicNameValuePair("Panic", "false"));
 				nameValuePairs.add(new BasicNameValuePair("Latitude", "0"));
 				nameValuePairs.add(new BasicNameValuePair("Longitude", "0"));
 			} catch (Exception e) {
@@ -100,7 +100,6 @@ public class RegisterActivity extends Activity {
 			editor.putString("Name", NameText.getText().toString());
 			editor.putString("PhoneNumber", PhoneNumberText.getText().toString());
 			editor.putString("Visiblity", "false");
-			editor.putString("Panic", "false");
 			editor.putFloat("Latitude", 0);
 			editor.putFloat("Longitude", 0);
 
