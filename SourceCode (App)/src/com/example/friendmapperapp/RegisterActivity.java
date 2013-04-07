@@ -2,6 +2,7 @@ package com.example.friendmapperapp;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -72,13 +73,19 @@ public class RegisterActivity extends Activity {
 		if (PhoneNumberText.getText().toString() == "") {
 			error.setVisibility(TextView.VISIBLE);
 		} else {
-			// Creating a JSON Object 
-			JSONObject obj=new JSONObject();
-			 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+			
+		/* Creating a PIN number */
+		String temp_pin = UUID.randomUUID().toString();
+		String pin_ = temp_pin.substring(0,5);
+		
+		// Creating a JSON Object 
+		JSONObject obj=new JSONObject();
+		 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		       
 			try {
 				nameValuePairs.add(new BasicNameValuePair("Name", NameText.getText().toString()));
 				nameValuePairs.add(new BasicNameValuePair("PhoneNumber", PhoneNumberText.getText().toString()));
+				nameValuePairs.add(new BasicNameValuePair("PIN", pin_));
 				nameValuePairs.add(new BasicNameValuePair("Registered", "true"));
 				nameValuePairs.add(new BasicNameValuePair("Visibility", "false"));
 				nameValuePairs.add(new BasicNameValuePair("Latitude", "0"));
@@ -99,6 +106,7 @@ public class RegisterActivity extends Activity {
 			editor.putString("Registered", "true");
 			editor.putString("Name", NameText.getText().toString());
 			editor.putString("PhoneNumber", PhoneNumberText.getText().toString());
+			editor.putString("PIN", pin_);
 			editor.putString("Visiblity", "false");
 			editor.putFloat("Latitude", 0);
 			editor.putFloat("Longitude", 0);
