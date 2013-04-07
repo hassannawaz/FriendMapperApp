@@ -1,9 +1,17 @@
 package com.example.friendmapperapp;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
@@ -32,9 +40,9 @@ public class RegisterActivity extends Activity {
 		String phoneNumber = phoneManager.getLine1Number();
 		TextView PhoneNumberText = (TextView) findViewById(R.id.Phone_number);
 		PhoneNumberText.setText(phoneNumber);
-		
+
 		if (!PhoneNumberText.getText().equals(""))
-		PhoneNumberText.setEnabled(isRestricted());
+			PhoneNumberText.setEnabled(isRestricted());
 	}
 
 	@Override
@@ -45,16 +53,7 @@ public class RegisterActivity extends Activity {
 	}
 
 	public void SubmitRegistration(View view) throws InterruptedException {
-		DatabaseHandler temp_handler = null;
-		
-		/* Creating a SQLLITE Database */
-		try {
-			temp_handler = DatabaseHandler.getInstance(this);
-		} catch (RemoteException e1) {
-			e1.printStackTrace();
-			Log.v("Exception", e1.getMessage());
-		}
-		
+
 		/* Shared Preferences */
 		Context context = (Activity) this;
 		SharedPreferences sharedPref = context.getSharedPreferences(
@@ -72,25 +71,31 @@ public class RegisterActivity extends Activity {
 		if (PhoneNumberText.getText().toString() == "") {
 			error.setVisibility(TextView.VISIBLE);
 		} else {
-			// Creating a JSON Object 
-			JSONObject obj=new JSONObject();
-			 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-		       
+			// Creating a JSON Object
+			JSONObject obj = new JSONObject();
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+
 			try {
-				nameValuePairs.add(new BasicNameValuePair("Name", NameText.getText().toString()));
-				nameValuePairs.add(new BasicNameValuePair("PhoneNumber", PhoneNumberText.getText().toString()));
-				nameValuePairs.add(new BasicNameValuePair("Registered", "true"));
-				nameValuePairs.add(new BasicNameValuePair("Visibility", "false"));
+				nameValuePairs.add(new BasicNameValuePair("Name", NameText
+						.getText().toString()));
+				nameValuePairs.add(new BasicNameValuePair("PhoneNumber",
+						PhoneNumberText.getText().toString()));
+				nameValuePairs
+						.add(new BasicNameValuePair("Registered", "true"));
+				nameValuePairs
+						.add(new BasicNameValuePair("Visibility", "false"));
 				nameValuePairs.add(new BasicNameValuePair("Latitude", "0"));
 				nameValuePairs.add(new BasicNameValuePair("Longitude", "0"));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-	
+
 			// Forwarding Request To Server
 			try {
-				temp_handler.sendDatatoServer("http://10.0.2.2:8080/friendmapper/register.php", nameValuePairs);
-			
+				sendDatatoServer(
+						"http://10.0.2.2:8080/friendmapper/register.php",
+						nameValuePairs);
+
 			} catch (Throwable e) {
 				e.printStackTrace();
 			}
@@ -98,7 +103,8 @@ public class RegisterActivity extends Activity {
 			// Editing Shared Preferences
 			editor.putString("Registered", "true");
 			editor.putString("Name", NameText.getText().toString());
-			editor.putString("PhoneNumber", PhoneNumberText.getText().toString());
+			editor.putString("PhoneNumber", PhoneNumberText.getText()
+					.toString());
 			editor.putString("Visiblity", "false");
 			editor.putFloat("Latitude", 0);
 			editor.putFloat("Longitude", 0);
@@ -112,6 +118,34 @@ public class RegisterActivity extends Activity {
 			startActivity(intent);
 			finish();
 		}
+
+	}
+
+	public void sendDatatoServer(final String url,
+			final List<NameValuePair> nameValuePairs) {
+		new Thread() {
+
+			public void run() {
+				HttpClient httpclient = new DefaultHttpClient();
+				HttpPost httppost = new HttpPost(url);
+
+				try {
+					httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				// Execute HTTP Post Request
+				HttpResponse response = null;
+				try {
+					response = httpclient.execute(httppost);
+				} catch (ClientProtocolException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}.start();
 
 	}
 
