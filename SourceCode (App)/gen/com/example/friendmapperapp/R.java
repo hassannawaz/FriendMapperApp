@@ -30,24 +30,30 @@ public final class R {
         public static final int ic_logo=0x7f020001;
     }
     public static final class id {
-        public static final int ErrorRegistration=0x7f09000b;
-        public static final int FriendMapperHeading=0x7f090001;
-        public static final int HRGMText=0x7f090003;
-        public static final int MainPageLoading=0x7f090000;
-        public static final int MainPageLogo=0x7f090004;
-        public static final int MainPageLogo_extended=0x7f090002;
-        public static final int Name=0x7f090005;
-        public static final int Name_text=0x7f090007;
-        public static final int Phone_number=0x7f090006;
-        public static final int Phone_number_text=0x7f090008;
-        public static final int RegistrationSubmit=0x7f090009;
-        public static final int action_settings=0x7f09000c;
-        public static final int submitLoading=0x7f09000a;
+        public static final int ErrorRegistration=0x7f090010;
+        public static final int FriendMapperHeading=0x7f090006;
+        public static final int HRGMText=0x7f090008;
+        public static final int MainPageLoading=0x7f090005;
+        public static final int MainPageLogo=0x7f090009;
+        public static final int MainPageLogo_extended=0x7f090007;
+        public static final int Name=0x7f09000a;
+        public static final int Name_text=0x7f09000c;
+        public static final int Phone_number=0x7f09000b;
+        public static final int Phone_number_text=0x7f09000d;
+        public static final int RegistrationSubmit=0x7f09000e;
+        public static final int action_settings=0x7f090011;
+        public static final int button1=0x7f090002;
+        public static final int checkBox1=0x7f090001;
+        public static final int panicbutton=0x7f090003;
+        public static final int progressBar1=0x7f090000;
+        public static final int settingButton=0x7f090004;
+        public static final int submitLoading=0x7f09000f;
     }
     public static final class layout {
         public static final int activity_friend_mapper_main=0x7f030000;
         public static final int activity_main=0x7f030001;
         public static final int activity_register=0x7f030002;
+        public static final int settings=0x7f030003;
     }
     public static final class menu {
         public static final int friend_mapper_main=0x7f080000;

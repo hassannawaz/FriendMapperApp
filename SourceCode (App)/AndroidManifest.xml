@@ -18,7 +18,7 @@
         android:restoreAnyVersion="true"
         android:theme="@style/CustomTheme" >
         <activity
-            android:name="com.example.friendmapperapp.MainActivity"
+            android:name=".Views.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -28,13 +28,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.friendmapperapp.RegisterActivity"
+            android:name=".Views.RegisterActivity"
             android:label="@string/title_activity_register" >
         </activity>
-        <activity
-            android:name="com.example.friendmapperapp.FriendMapperMainActivity"
-            android:label="@string/title_activity_friend_mapper_main" >
-        </activity>
+        <activity android:name=".Views.Settings"></activity>
+        <activity android:name=".Views.FriendMapperMainActivity"></activity>
     </application>
 
 </manifest>
