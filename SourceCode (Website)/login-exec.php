@@ -9,7 +9,7 @@
 	  $errflag = false;
 	  
 	  //Connect to mysql server
-	  $link = mysqli_connect("localhost:3306", "root", "" ,"friendmapper" );
+	  $link = mysqli_connect("mysql1.000webhost.com", "a3038225_mk", "friendmapper1" ,"a3038225_friend" );
 	  
 	  //Function to sanitize values received from the form. Prevents SQL injection
 	  function clean($str) {
@@ -43,7 +43,7 @@
 	  }
 	  
 	  //Create query
-	  $sql = "SELECT * FROM  friendmapper.members WHERE PhoneNumber='".$login."' AND PIN='".$password."'";
+	  $sql = "SELECT * FROM  a3038225_friend.members WHERE PhoneNumber='".$login."' AND PIN='".$password."'";
 	  $stmt = mysqli_query($link,$sql);
 	  
 	  if( $stmt === false) {
@@ -55,7 +55,7 @@
 	   $row_count = $row_count + 1;
 	  }
 	  
-	  $sql1 = "SELECT * FROM  friendmapper.members WHERE PhoneNumber='".$login."' AND PIN='".$password."'";
+	  $sql1 = "SELECT * FROM  a3038225_friend.members WHERE PhoneNumber='".$login."' AND PIN='".$password."'";
 	  $stmt1 = mysqli_query($link,$sql1);
 	  
 	  //Check whether the query was successful or not
